@@ -14,7 +14,7 @@ When you want to expose a service running on a port on your local machine to the
 
 ### Why Create My Own If There Are Already Services That Do This?
 
-I used ngrok for more than 5 years, but they started charging for their service. What was once a useful tool in my toolkit became another expense in my SaaS budget. Because of that, I began searching for free solutions, and it occurred to me that by setting up a VM in the cloud, using a proxy, and tearing it down when done, I could almost eliminate my costs. Plus, I would have access to premium features for free, like a custom domain with HTTPS.
+I have been using Ngrok for over 5 years, but they have started charging for their service. What was once a useful tool in my toolkit became another expense in my SaaS budget. Because of that, I began searching for free solutions, and by setting up a VM in the cloud, using a proxy, and tearing it down when done, I could almost eliminate my costs. Plus, I would have access to premium features for free, like a custom domain with HTTPS.
 
 ### The Technical Part
 
