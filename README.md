@@ -2,7 +2,7 @@
 
 ## Create Your Own Proxy Tunnel Service
 
-Using [FRP](https://github.com/fatedier/frp), [Terraform](https://www.terraform.io/), and other tools, I’ll show you how to easily set up your own proxy tunnel on Google Cloud (or AWS).
+Using [FRP](https://github.com/fatedier/frp)(Fast Reverse Proxy), [Terraform](https://www.terraform.io/), and other tools, I’ll show you how to easily set up your own proxy tunnel on Google Cloud (or AWS).
 
 ### What is a Reverse Proxy?
 
