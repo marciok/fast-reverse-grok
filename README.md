@@ -258,7 +258,8 @@ Most services today won’t allow you to connect without HTTPS, but don’t worr
 
     e.g., `dev.mycustomdomain.com`
 
-    2. If it worked, Certbot generated a certificate and key. Copy them so we can use them on our client:
+    Certbot generated a certificate and key. Copy them so we can use them on our client.
+
     3. Copy the contents of `fullchain.pem` and paste them into a new file in `/client` as `server.crt`:
 
     ```bash
