@@ -313,8 +313,9 @@ Most services today won’t allow you to connect without HTTPS, but don’t worr
     keyPath = "./server.key"
     ```
 
-Yahoo! We now have HTTPS for our local server! For example:
+Congrats! You now have HTTPS for our local server!
 
 https://dev.mycustomdomain.com
 
-Congrats! You made it to the end! If you wish to have this all bundled into a single command, click [here](#).
+## Conclusion
+By combining a few tools, you can easily set up your own local tunnel with full control and HTTPS connections.
