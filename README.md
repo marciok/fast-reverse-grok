@@ -220,3 +220,100 @@ $ python3 -m http.server 3000 # Sample python server
 Finally, your local machine is exposed through FRPS at the port we set up, which means if you access http://35.555.555.88:3000 from anywhere, the request redirects to your application!
 
 **Warning: You are exposing your local machine to the internet, which can be dangerous, so use it cautiously.**
+
+If you are done and don't need to set up an HTTPS endpoint, you can safely stop your client and destroy the VM:
+
+```bash
+$ terraform destroy
+```
+
+## Enabling HTTPS on your server
+
+
+Most services today won’t allow you to connect without HTTPS, but don’t worry—FRPS and Certbot have you covered. Just ensure you have a domain that we can use to route our traffic.
+
+1. Point the server's public IP address to your domain by creating an A type record, e.g.:
+
+    ```bash
+    Name  Type  Value
+    dev     A    35.555.555.88
+    ```
+
+
+2. Connect to your server using SSH so we can download Certbot, generate certificates, and obtain them.
+    1. Connect via SSH and run:
+
+    ```bash
+    # In our server terminal...
+    $ sudo apt install certbot
+    ```
+
+    After the installation is completed, run the following:
+
+    ```bash
+    sudo certbot certonly --standalone
+    ```
+
+    You will be prompted to enter your email and specify the domain that we set in Step 1,
+
+    e.g., `dev.mycustomdomain.com`
+
+    2. If it worked, Certbot generated a certificate and key. Copy them so we can use them on our client:
+    3. Copy the contents of `fullchain.pem` and paste them into a new file in `/client` as `server.crt`:
+
+    ```bash
+    sudo cat /etc/letsencrypt/live/dev.mycustomdomain.com/fullchain.pem
+    # Copy the entire content, e.g., --- BEGIN ---- ....
+    ```
+
+    4. Copy the contents of `privkey.pem` and paste them into a new file in `/client` as `server.key`:
+
+    ```bash
+    sudo cat /etc/letsencrypt/live/dev.mycustomdomain.com/privkey.pem
+    ```
+
+    5. Stop your FRPS server so we can set a virtual host and enable HTTPS:
+
+    ```bash
+    $ sudo pkill frps
+    $ sudo vi /frp/frps.toml
+    ```
+
+    6. Edit `frps.toml` to add the `vhost https` port and save:
+
+    ```bash
+    # frps.toml
+    bindPort = 7000
+    VhostHTTPSPort = 443 # <- Add this..
+    ```
+
+3. Run FRPS again:
+
+    ```bash
+    $ cd /frp
+    $ sudo ./frps -c frps.toml &
+    ```
+
+4. Now on your local machine, edit `frpsc.toml` to include our domain, certificate, and key copied in Step 2:
+
+    ```bash
+    serverAddr = "35.555.555.88"
+    serverPort = 7000
+
+    [[proxies]]
+    name = "test_https2http"
+    type = "https"
+    customDomains = ["dev.mycustomdomain.com"]
+
+    [proxies.plugin]
+    type = "https2http"
+    localAddr = "127.0.0.1:3000"
+    crtPath = "./server.crt"
+    keyPath = "./server.key"
+    ```
+
+Yahoo! We now have HTTPS for our local server! For example:
+
+https://dev.mycustomdomain.com
+
+Congrats! You made it to the end! If you wish to have this all bundled into a single command, click [here](#).
