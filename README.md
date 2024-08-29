@@ -2,7 +2,7 @@
 
 ## Create Your Own Proxy Tunnel Service
 
-Using [FRPS](), [Terraform](), and other tools, I’ll show you how to easily set up your own proxy tunnel on Google Cloud (or AWS).
+Using [FRP](https://github.com/fatedier/frp), [Terraform](https://www.terraform.io/), and other tools, I’ll show you how to easily set up your own proxy tunnel on Google Cloud (or AWS).
 
 ### What is a Reverse Proxy?
 
@@ -22,7 +22,7 @@ I used ngrok for more than 5 years, but they started charging for their service.
 
 As previously mentioned, in a proxy setup, we need a server that accepts connections from a client. Therefore, we need to deploy a virtual machine with a public IP where our server will run and accept connections from both clients and the outside world.
 
-We are going to use Google Cloud as the cloud provider. However, if you want to see this tutorial for AWS, please click [here](#).
+We are going to use Google Cloud as the cloud provider. However, if you want to see this tutorial for AWS, please click [here](https://github.com/marciok/fast-reverse-grok/issues/new).
 
 #### Google Cloud
 
@@ -230,7 +230,7 @@ $ terraform destroy
 ## Enabling HTTPS on your server
 
 
-Most services today won’t allow you to connect without HTTPS, but don’t worry—FRPS and Certbot have you covered. Just ensure you have a domain that we can use to route our traffic.
+Most services today won’t allow you to connect without HTTPS, but don’t worry—FRPS and [Certbot](https://certbot.eff.org/) have you covered. Just ensure you have a domain that we can use to route our traffic.
 
 1. Point the server's public IP address to your domain by creating an A type record, e.g.:
 
